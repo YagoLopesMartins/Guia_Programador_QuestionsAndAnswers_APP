@@ -52,7 +52,8 @@ app.post("/salvarpergunta", (req, res) =>{
     PerguntaModelDB.create({
         titulo: titulo,
         descricao: descricao
-    }).then(() =>{
+    })
+    .then(() =>{
         res.redirect("/")
     })
     .catch((error) => {
@@ -61,6 +62,24 @@ app.post("/salvarpergunta", (req, res) =>{
     // console.log(titulo + " - " + descricao)
 })
 
+app.get("/pergunta/:id", (req, res) => {
+    var id = req.params.id
 
+    PerguntaModelDB.findOne({
+        where: { id: id}
+    })
+    .then((pergunta) =>{
+        if(pergunta != undefined) {
+            res.render("pergunta", {
+                pergunta: pergunta
+            })
+        }else{
+            res.redirect("/")
+        }
+    })
+    .catch((error) => {
+        console.error('Error: ', error);
+    })
+})
 
 app.listen(8080, ()=> {console.log("App executando...")})
