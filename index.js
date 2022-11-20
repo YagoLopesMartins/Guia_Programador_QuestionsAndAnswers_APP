@@ -72,7 +72,10 @@ app.get("/pergunta/:id", (req, res) => {
         if(pergunta != undefined) {
 
             RespostaModelDB.findAll({
-                where: { perguntaId: pergunta.id}
+                where: { perguntaId: pergunta.id},
+                order: [
+                    ['id', 'DESC'] // ASC
+                ]
             })
             .then(respostas =>{
                 res.render("pergunta", {
