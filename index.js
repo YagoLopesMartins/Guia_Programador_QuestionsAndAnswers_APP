@@ -2,7 +2,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const connection = require("./database/database")
 const PerguntaModelDB = require("./database/Pergunta")
-
+const RespostaModelDB = require("./database/Resposta")
 // try {
 //     await connection.authenticate();
 //     console.log('Connection has been established successfully.');
