@@ -82,4 +82,21 @@ app.get("/pergunta/:id", (req, res) => {
     })
 })
 
+app.post("/responder", (req, res) => {
+    var corpo  = req.body.corpo
+    var perguntaId  = req.body.perguntaId
+
+    RespostaModelDB.create({
+        corpo: corpo,
+        perguntaId: perguntaId
+    })
+    .then(() =>{
+        // res.redirect("/pergunta/"+perguntaId)
+        res.redirect("/")
+    })
+    .catch((error) => {
+        console.error('Error: ', error);
+    })
+})
+
 app.listen(8080, ()=> {console.log("App executando...")})
