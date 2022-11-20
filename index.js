@@ -70,9 +70,17 @@ app.get("/pergunta/:id", (req, res) => {
     })
     .then((pergunta) =>{
         if(pergunta != undefined) {
-            res.render("pergunta", {
-                pergunta: pergunta
+
+            RespostaModelDB.findAll({
+                where: { perguntaId: pergunta.id}
             })
+            .then(respostas =>{
+                res.render("pergunta", {
+                    pergunta: pergunta,
+                    respostas: respostas
+                })
+            })
+
         }else{
             res.redirect("/")
         }
