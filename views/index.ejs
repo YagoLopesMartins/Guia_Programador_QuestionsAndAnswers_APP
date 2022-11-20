@@ -2,22 +2,40 @@
 <body>
     <%- include('partials/navbar') %>
    <div class="container">
-    <div class="card" id="formulario-pergunta">
-        <div class="card-header">
-            <h3>Questions</h3>
+        <div class="card" id="formulario-pergunta">
+            <div class="card-header">
+                <h3>Questions</h3>
+            </div>
+            <div class="card-body">
+                <form action="/salvarpergunta" method="POST">
+                    <label for="">Titulo</label>
+                    <br>
+                    <input name="titulo" type="text" class="form-control" placeholder="">
+                    <label for="">Descrição</label>
+                    <input name="descricao" type="text" class="form-control" placeholder="">
+                    <br>
+                    <button class="btn btn-primary">Perguntar</button>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="/salvarpergunta" method="POST">
-                <label for="">Titulo</label>
-                <br>
-                <input name="titulo" type="text" class="form-control" placeholder="">
-                <label for="">Descrição</label>
-                <input name="descricao" type="text" class="form-control" placeholder="">
-                <br>
-                <button class="btn btn-primary">Perguntar</button>
-            </form>
-        </div>
-    </div>
+   </div>
+   <div class="container">
+    <hr>
+    <h1>Perguntas</h1>
+    <a href="/">Perguntar</a>
+    <hr>
+        <% perguntas.forEach(pergunta => { %>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <p><%= pergunta.titulo %></p>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary">Responder</button>
+                </div>
+            </div>           
+            <!-- <p><%= pergunta.descricao %></p> -->
+        <% }) %>
    </div>
 </body>
 <%- include('partials/footer') %>

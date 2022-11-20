@@ -27,16 +27,38 @@ app.use(bodyParser.urlencoded({ extended: false}))
 app.use(bodyParser.json())
 
 app.get("/", (req, res) =>{
-    var name = "Yago"
+
+    PerguntaModelDB.findAll({ raw: true})
+    .then((perguntas) =>{
+        res.render("index", { 
+            perguntas: perguntas 
+        })
+    })
+    .catch((error) => {
+        console.error('Error: ', error);
+    })
+
+    // var name = "Yago"
     // res.send("Bem vindo")
-    res.render("index", { name:name, language: "JS" })
+    // res.render("index", { name:name, language: "JS" })
 })
 
 app.post("/salvarpergunta", (req, res) =>{
     var titulo  = req.body.titulo
     var descricao  = req.body.descricao
 
-    console.log(titulo + " - " + descricao)
+    PerguntaModelDB.create({
+        titulo: titulo,
+        descricao: descricao
+    }).then(() =>{
+        res.redirect("/")
+    })
+    .catch((error) => {
+        console.error('Error: ', error);
+    })
+    // console.log(titulo + " - " + descricao)
 })
+
+
 
 app.listen(8080, ()=> {console.log("App executando...")})
